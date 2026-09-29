@@ -19,10 +19,10 @@
 /dtbo               emmc      /dev/block/by-name/dtbo                     flags=display="DTBO";backup=1;flashimg=1;slotselect
 
 # Sensitive data
-/protect_f          ext4      /dev/block/by-name/protect1                 flags=display="Protect_f";backup=1
-/protect_s          ext4      /dev/block/by-name/protect2                 flags=display="Protect_s";backup=1
-/nvram              emmc      /dev/block/by-name/nvram                    flags=display="Nvram";backup=1
-/nvdata             ext4      /dev/block/by-name/nvdata                   flags=display="Nvdata";backup=1
+/mnt/vendor/protect_f    ext4    /dev/block/platform/bootdevice/by-name/protect1    flags=display="Protect_f";backup=1
+/mnt/vendor/protect_s    ext4    /dev/block/platform/bootdevice/by-name/protect2    flags=display="Protect_s";backup=1
+/mnt/vendor/nvram         ext4    /dev/block/platform/bootdevice/by-name/nvram       flags=display="Nvram";backup=1
+/mnt/vendor/nvdata        ext4    /dev/block/platform/bootdevice/by-name/nvdata      flags=display="Nvdata";backup=1
 
 # Firmware
 /logo               emmc      /dev/block/by-name/logo                     flags=display="Logo";backup=1;flashimg=1
