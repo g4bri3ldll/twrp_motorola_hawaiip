@@ -11,6 +11,14 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     permissions: write-all
     steps:
+    - name: Free Disk Space
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        df -h
+
     - name: Checkout Repository
       uses: actions/checkout@v4
 
