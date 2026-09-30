@@ -1,0 +1,28 @@
+name: OrangeFox - Builder
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: 🦊 Building OrangeFox Recovery
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    permissions: write-all
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: OrangeFox Build
+      uses: UWU-TEAM/UWU-OrangeFox-Builder@v1.0.0
+      with:
+        USER_NAME: 'g4bri3ldll'
+        USER_EMAIL: 'gabrielalves.dasilva.0983@gmail.com'
+        DEVICE_TREE: 'https://github.com/g4bri3ldll/twrp_motorola_hawaiip'
+        DEVICE_TREE_BRANCH: 'android-12.1'
+        DEVICE_PATH: 'device/motorola/hawaiip'
+        DEVICE_NAME: 'hawaiip'
+        BUILD_TARGET: 'boot'
+        MAINTAINER_URL: 'https://i.ibb.co.com/8gyjXq06/maintainer.png'
+        GH_RELEASE: 'true'
