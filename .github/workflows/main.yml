@@ -11,18 +11,20 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     permissions: write-all
     steps:
-    - name: Free Disk Space
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Free Disk Space & Aggressive Cleanup
       run: |
         sudo rm -rf /usr/share/dotnet
         sudo rm -rf /opt/ghc
         sudo rm -rf "/usr/local/share/boost"
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /opt/hostedtoolcache/CodeQL
         df -h
 
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-
-    - name: Maximize Build Disk Space
+    - name: Maximize Build Space
       uses: easimon/maximize-build-space@master
       with:
         root-reserve-mb: 10240
@@ -32,10 +34,21 @@ jobs:
         remove-haskell: 'true'
         remove-codeql: 'true'
 
+    - name: Redirect Apt Cache to Big Disk
+      run: |
+        sudo mkdir -p ${GITHUB_WORKSPACE}/apt-cache/partial
+        sudo mkdir -p ${GITHUB_WORKSPACE}/apt-cache/lists/partial
+        echo "Dir::Cache \"${GITHUB_WORKSPACE}/apt-cache\";" | sudo tee /etc/apt/apt.conf.d/99cache
+        echo "Dir::Cache::Archives \"archives/\";" | sudo tee -a /etc/apt/apt.conf.d/99cache
+
     - name: Install Build Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y git repo bc bison build-dep ccache curl flex g++-multilib gcc-multilib g++-10 gcc-10 gnupg gperf imagemagick lib32ncurses-dev lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc yasm zlib1g-dev libncurses5
+        sudo apt-get install -y --no-install-recommends \
+          git repo bc bison build-essential ccache curl flex g++-multilib gcc-multilib \
+          gnupg gperf imagemagick lib32ncurses-dev lib32readline-dev lib32z1-dev \
+          libelf-dev liblz4-tool libsdl1.2-dev libssl-dev libxml2 libxml2-utils \
+          lzop pngcrush rsync schedtool squashfs-tools xsltproc yasm zlib1g-dev libncurses5
 
     - name: Configure Git Credentials
       run: |
