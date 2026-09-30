@@ -55,16 +55,15 @@ jobs:
         git config --global user.name 'g4bri3ldll'
         git config --global user.email 'gabrielalves.dasilva.0983@gmail.com'
 
-    - name: Initialize OrangeFox 14.1 Manifest
+    - name: Initialize OrangeFox Manifest
       run: |
         mkdir -p ${GITHUB_WORKSPACE}/OrangeFox
         cd ${GITHUB_WORKSPACE}/OrangeFox
-        # Garante que o repo local seja usado caso o global dê conflito
         mkdir -p ~/bin
         curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
         chmod a+x ~/bin/repo
         export PATH=~/bin:$PATH
-        repo init -u https://gitlab.com/OrangeFox/manifest.git -b fox_14.1 --depth=1 --no-repo-verify
+        repo init -u https://gitlab.com/OrangeFox/manifest.git -b fox_16.0 --depth=1 --no-repo-verify
 
     - name: Sync Sources
       run: |
