@@ -59,7 +59,12 @@ jobs:
       run: |
         mkdir -p ${GITHUB_WORKSPACE}/OrangeFox
         cd ${GITHUB_WORKSPACE}/OrangeFox
-        repo init -u https://gitlab.com/OrangeFox/manifest.git -b fox_14.1 --depth=1
+        # Garante que o repo local seja usado caso o global dê conflito
+        mkdir -p ~/bin
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+        chmod a+x ~/bin/repo
+        export PATH=~/bin:$PATH
+        repo init -u https://gitlab.com/OrangeFox/manifest.git -b fox_14.1 --depth=1 --no-repo-verify
 
     - name: Sync Sources
       run: |
