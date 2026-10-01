@@ -67,6 +67,14 @@ OF_DEFAULT_KEYMASTER_VERSION := 4.1
 # Display
 TARGET_SCREEN_DENSITY := 320
 
+# Resolução da tela do Moto G22 (720x1600)
+TARGET_SCREEN_WIDTH := 720
+TARGET_SCREEN_HEIGHT := 1600
+
+# Flags deAdaptação do OrangeFox para telas esticadas (Aspect Ratio)
+OF_SCREEN_H := 1600
+OF_STATUS_H := 80
+
 # filesystem
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
