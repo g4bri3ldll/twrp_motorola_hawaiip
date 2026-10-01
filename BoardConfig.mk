@@ -72,7 +72,7 @@ TARGET_SCREEN_WIDTH := 720
 TARGET_SCREEN_HEIGHT := 1600
 
 # Flags de Adaptação do OrangeFox para telas esticadas (Aspect Ratio)
-OF_SCREEN_H := 1880
+OF_SCREEN_H := 1900
 OF_STATUS_H := 100
 OF_SCREEN_W := 760
 
