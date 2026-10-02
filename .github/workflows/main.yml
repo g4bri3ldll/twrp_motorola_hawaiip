@@ -56,7 +56,7 @@ jobs:
       run: |
         cd fox_11.0
         mkdir -p device/motorola
-        git clone --depth=1 -b android-11 https://github.com/g4bri3ldll/twrp_motorola_hawaiip device/motorola/hawaiip
+        git clone --depth=1 -b android-12.1 https://github.com/g4bri3ldll/twrp_motorola_hawaiip device/motorola/hawaiip
 
     - name: Compile OrangeFox R11.1
       run: |
