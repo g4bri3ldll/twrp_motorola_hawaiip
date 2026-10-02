@@ -30,17 +30,28 @@ jobs:
         git config --global user.name "g4bri3ldll"
         git config --global user.email "gabrielalves.dasilva.0983@gmail.com"
 
-    - name: Sync OrangeFox Base (fox_11.0 Branch)
+    - name: Sync Minimal Manifest (TWRP 11)
       run: |
         mkdir fox_11.0
         cd fox_11.0
-        repo init --depth=1 -u https://gitlab.com -b fox_11.0
+        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11
         repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune -j$(nproc --all)
+
+    - name: Clone OrangeFox Sources and Vendor (fox_11.0)
+      run: |
+        cd fox_11.0
+        # Baixa os fontes do Recovery na branch fox_11.0
+        git clone --recurse-submodules https://gitlab.com/OrangeFox/bootable/Recovery.git -b fox_11.0 bootable/recovery
+        
+        # Baixa a árvore de vendor do OrangeFox na branch fox_11.0
+        mkdir -p vendor
+        git clone https://gitlab.com/OrangeFox/vendor/recovery.git -b fox_11.0 vendor/recovery
 
     - name: Clone Your Device Tree
       run: |
         cd fox_11.0
-        git clone --depth=1 -b android-12.1 https://github.com device/motorola/hawaiip
+        mkdir -p device/motorola
+        git clone --depth=1 -b android-11 https://github.com/g4bri3ldll/twrp_motorola_hawaiip device/motorola/hawaiip
 
     - name: Compile OrangeFox R11.1
       run: |
@@ -53,7 +64,7 @@ jobs:
         export FOX_BUILD_TYPE="Stable"
         export OF_MAINTAINER="g4bri3ldll"
         
-        lunch twrp_hawaiip-eng || lunch omni_hawaiip-eng
+        lunch omni_hawaiip-eng || lunch twrp_hawaiip-eng
         
         make clean
         mka bootimage -j$(nproc --all)
@@ -68,6 +79,6 @@ jobs:
         tag_name: OrangeFox-R11.1-hawaiip-${{ github.run_id }}
         name: OrangeFox Recovery R11.1 - Motorola G22 (hawaiip)
         body: |
-          Compilação automatizada baseada no script oficial orangefox_sync_legacy.sh.
+          Compilação automatizada baseada no script oficial orangefox_sync_legacy.sh (branch fox_11.0).
           Dispositivo: Motorola G22 (hawaiip)
           Versão do OrangeFox: R11.1 Stable
