@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: 🦊 Build OrangeFox R11.1
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     permissions: write-all
@@ -34,7 +34,6 @@ jobs:
       run: |
         mkdir fox_11.0
         cd fox_11.0
-        # Inicializa o repositório usando os parâmetros oficiais do script para a base R11.1
         repo init --depth=1 -u https://gitlab.com -b fox_11.0
         repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune -j$(nproc --all)
 
@@ -49,13 +48,11 @@ jobs:
         set +e
         source build/envsetup.sh
         
-        # Variáveis oficiais extraídas do script legacy.sh para forçar a R11.1
         export ALLOW_MISSING_DEPENDENCIES=true
         export FOX_VERSION="R11.1"
         export FOX_BUILD_TYPE="Stable"
         export OF_MAINTAINER="g4bri3ldll"
         
-        # Executa o Lunch para o Motorola G22 (hawaiip)
         lunch twrp_hawaiip-eng || lunch omni_hawaiip-eng
         
         make clean
