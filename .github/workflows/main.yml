@@ -40,10 +40,15 @@ jobs:
     - name: Clone OrangeFox Sources and Vendor (fox_11.0)
       run: |
         cd fox_11.0
+        
+        # Remove a pasta padrão do TWRP se ela já existir
+        rm -rf bootable/recovery
+        
         # Baixa os fontes do Recovery na branch fox_11.0
         git clone --recurse-submodules https://gitlab.com/OrangeFox/bootable/Recovery.git -b fox_11.0 bootable/recovery
         
         # Baixa a árvore de vendor do OrangeFox na branch fox_11.0
+        rm -rf vendor/recovery
         mkdir -p vendor
         git clone https://gitlab.com/OrangeFox/vendor/recovery.git -b fox_11.0 vendor/recovery
 
