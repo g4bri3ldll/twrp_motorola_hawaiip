@@ -39,4 +39,5 @@ jobs:
         source build/envsetup.sh
         export TARGET_RELEASE=ap2a
         lunch twrp_hawaiip-ap2a-eng
-        mka -j1 adbd bootimage
+        mka -j$(nproc) adbd bootimage
+                
