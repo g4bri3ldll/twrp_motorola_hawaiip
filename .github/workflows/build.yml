@@ -37,5 +37,6 @@ jobs:
         git clone https://github.com/g4bri3ldll/twrp_motorola_hawaiip -b android-12.1 device/motorola/hawaiip
         
         source build/envsetup.sh
-        lunch twrp_hawaiip-eng
+        export TARGET_RELEASE=ap2a
+        lunch twrp_hawaiip-ap2a-eng
         mka -j1 adbd bootimage
