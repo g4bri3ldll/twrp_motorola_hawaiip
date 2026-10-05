@@ -11,3 +11,15 @@ soong_namespace {
         "bootable/recovery",
     ],
 }
+
+cc_library_shared {
+    name: "libfscrypttwrp",
+    recovery_available: true,
+    vendor_available: true,
+    // Se a árvore base já possuir os fontes do fscrypt mas falhar no vínculo, 
+    // apontamos para os includes corretos da recovery:
+    include_dirs: [
+        "bootable/recovery",
+        "bootable/recovery/crypto/fscrypt",
+    ],
+}
