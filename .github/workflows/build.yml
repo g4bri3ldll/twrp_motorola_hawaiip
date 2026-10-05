@@ -14,6 +14,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Install Repo Tool
+      run: |
+        sudo mkdir -p /usr/local/bin
+        sudo curl -s https://storage.googleapis.com/git-repo-downloads/repo -o /usr/local/bin/repo
+        sudo chmod +x /usr/local/bin/repo  
+
     - name: Set up Environment & Sync OrangeFox
       run: |
         git config --global user.name 'g4bri3ldll'
