@@ -82,3 +82,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lpdump \
     dmctl
+
+PRODUCT_PACKAGES += \
+    libfscrypttwrp
