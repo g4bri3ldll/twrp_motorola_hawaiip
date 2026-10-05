@@ -1,0 +1,35 @@
+name: OrangeFox - Builder
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: 🦊 Building OrangeFox Recovery
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    permissions: write-all
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Environment & Sync OrangeFox
+      run: |
+        git config --global user.name 'g4bri3ldll'
+        git config --global user.email 'gabrielalves.dasilva.0983@gmail.com'
+        
+        mkdir -p ~/OrangeFox_sync
+        cd ~/OrangeFox_sync
+        git clone https://gitlab.com/OrangeFox/sync.git
+        cd ~/OrangeFox_sync/sync/
+        ./orangefox_sync.sh --branch 14.1 --path ~/fox_14.1
+
+    - name: Clone Device Tree and Build
+      run: |
+        cd ~/fox_14.1
+        git clone https://github.com/g4bri3ldll/twrp_motorola_hawaiip -b android-12.1 device/motorola/hawaiip
+        
+        source build/envsetup.sh
+        lunch twrp_hawaiip-eng
+        mka -j1 adbd bootimage
