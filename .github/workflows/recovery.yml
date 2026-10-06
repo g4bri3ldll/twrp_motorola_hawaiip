@@ -130,7 +130,7 @@ jobs:
       run: |
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
-        lunch twrp_hawaiip-ap2a-eng && make clean && make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
+        lunch twrp_hawaiip-eng && make clean && make bootimage -j$(nproc --all)
 
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
