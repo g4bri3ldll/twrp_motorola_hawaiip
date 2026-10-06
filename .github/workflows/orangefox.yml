@@ -93,8 +93,8 @@ jobs:
         git clone https://gitlab.com/OrangeFox/sync.git ~/OrangeFox_sync
         cd ~/OrangeFox_sync
         
-        # Cria um link simbólico para a pasta patches onde o script legado espera encontrar
-        ln -s legacy/patches patches
+        # Copia a pasta de patches para a raiz, garantindo que o arquivo seja encontrado
+        cp -r legacy/patches ./patches
         
         # Executa o script legado apontando para a branch 11.0 e criando a workspace
         mkdir -p ~/workspace
