@@ -83,25 +83,20 @@ jobs:
         chmod a+x ~/bin/repo
         sudo ln -sf ~/bin/repo /usr/bin/repo
       
-    - name: Run OrangeFox Legacy Sync Script
+    - name: Run OrangeFox Sync Script
       id: pwd
       run: |
-        git config --global user.name "${{ github.event.inputs.USER_NAME }}"
-        git config --global user.email "${{ github.event.inputs.USER_EMAIL }}"
-        
-        # Clona o repositório de sync oficial do OrangeFox
-        git clone https://gitlab.com/OrangeFox/sync.git ~/OrangeFox_sync
-        cd ~/OrangeFox_sync
-        
-        # Copia a pasta de patches para a raiz, garantindo que o arquivo seja encontrado
-        cp -r legacy/patches ./patches
-        
-        # Executa o script legado apontando para a branch 11.0 e criando a workspace
-        mkdir -p ~/workspace
-        bash legacy/orangefox_sync_legacy.sh --branch ${{ github.event.inputs.FOX_BRANCH }} --path ~/workspace
-        
-        echo "workspace-folder=/home/runner/workspace" >> $GITHUB_OUTPUT
-
+         git config --global user.name "${{ github.event.inputs.USER_NAME }}"
+         git config --global user.email "${{ github.event.inputs.USER_EMAIL }}"
+         
+         git clone https://gitlab.com/OrangeFox/sync.git ~/OrangeFox_sync
+         cd ~/OrangeFox_sync
+         
+         mkdir -p ~/workspace
+         bash orangefox_sync.sh --branch 11.0 --path ~/workspace
+    
+         echo "workspace-folder=/home/runner/workspace" >> $GITHUB_OUTPUT
+         
     - name: Clone device tree
       run: |
         git clone ${{ github.event.inputs.DEVICE_TREE_URL }} -b ${{ github.event.inputs.DEVICE_TREE_BRANCH }} ./${{ github.event.inputs.DEVICE_PATH }}
