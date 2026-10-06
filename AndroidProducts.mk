@@ -5,6 +5,9 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+TARGET_RELEASE := trunk_staging
+DISABLE_RELEASE_CONFIG_CHECK := true
+
 PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/twrp_hawaiip.mk
 
